@@ -1,0 +1,24 @@
+name: Compile and upload paper
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compile Paper
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: paper.tex
+          latexmk_use_lualatex: true
+      - name: Upload Paper
+        uses: actions/upload-artifact@v2
+        with:
+          name: Paper
+          path: paper.pdf
